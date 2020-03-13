@@ -1,18 +1,22 @@
-FROM ruby:alpine
+FROM ubuntu
 
-RUN apk --update add \
-    tmux \
-    vim \
-    docker \
-    docker-compose \
-    mysql-client \
-    bash
+RUN apt-get update && apt-get install -y \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      software-properties-common \
+      mysql-client \
+      tmux \
+      ruby-full
 
 RUN gem install tmuxinator
 
-ADD ./replication/tmuxinator-replication.yml /root/tmuxinator-replication.yml
-ADD ./replication/docker-compose.yml /root/docker-compose.yml
-ADD ./replication/slave-setup.sh /root/slave-setup.sh
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+RUN echo "deb https://download.docker.com/linux/ubuntu bionic stable" >> /etc/apt/sources.list
+RUN apt-get update && apt-get install -y docker-ce-cli
+
+RUN curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
 
 ENV EDITOR='vim'
 ENV SHELL='ash'

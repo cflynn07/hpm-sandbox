@@ -10,5 +10,5 @@ windows:
         - echo 2
         - while true; do sleep 1; docker logs -f mysql_slave; done
         - echo 4
-        - docker exec -it observer bash -c '/root/slave-setup.sh'
-        - docker exec -it observer bash -c '/root/slave-setup.sh'
+        - ./slave-setup.sh
+        - ./slave-setup.sh

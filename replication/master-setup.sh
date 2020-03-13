@@ -15,5 +15,5 @@ CID=$(docker inspect $container_name -f "{{ .Id }}")
 echo "found $container_name, ID: $CID"
 
 cat <<- EOF | mysql -u root -ppassword -h "$container_name"
-SHOW DATABASES;
+SHOW DATABASES; ###
 EOF

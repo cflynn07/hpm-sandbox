@@ -14,12 +14,3 @@ services:
       MYSQL_ROOT_PASSWORD: password
     expose:
       - 3306
-  observer:
-    container_name: observer
-    build:
-      context: .
-      dockerfile: ./Dockerfile-observer
-    volumes:
-      - "./:/root/"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    command: sleep 99999

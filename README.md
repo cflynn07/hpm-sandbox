@@ -31,10 +31,13 @@ $ docker-compose build
 $ docker-compose up
 
 # start visualization container
+# IN ./replication/
 $ docker run \
     --rm \
     -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ./:/root \
+    --network replicatoin_default \
     --name tmuxinator \
     tmuxinator:latest \
     tmuxinator start -p /root/tmuxinator-replication.yml
