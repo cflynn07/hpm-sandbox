@@ -1,0 +1,18 @@
+FROM ruby:alpine
+
+RUN apk --update add \
+    tmux \
+    vim \
+    docker \
+    docker-compose \
+    mysql-client \
+    bash
+
+RUN gem install tmuxinator
+
+ADD ./replication/tmuxinator-replication.yml /root/tmuxinator-replication.yml
+ADD ./replication/docker-compose.yml /root/docker-compose.yml
+ADD ./replication/slave-setup.sh /root/slave-setup.sh
+
+ENV EDITOR='vim'
+ENV SHELL='ash'
