@@ -4,11 +4,9 @@ name: tmuxinator-replication
 windows:
   - demo:
       root: /root
-      layout: fbf6,214x61,0,0[214x30,0,0{107x30,0,0[107x15,0,0,0,107x14,0,16,5],106x30,108,0[106x15,108,0,3,106x14,108,16,4]},214x30,0,31{107x30,0,31,1,106x30,108,31,2}]
+      layout: 83ed,214x120,0,0[214x59,0,0{107x59,0,0,0,106x59,108,0,2},214x60,0,60{107x60,0,60,4,106x60,108,60,5}]
       panes:
-        - while true; do sleep 1; docker logs -f mysql_master; done
-        - echo 2
-        - while true; do sleep 1; docker logs -f mysql_slave; done
-        - echo 4
-        - ./slave-setup.sh
+        - while true; do docker logs -f mysql_master; sleep 1; done
+        - ./master-setup.sh
+        - while true; do docker logs -f mysql_slave; sleep 1; done
         - ./slave-setup.sh

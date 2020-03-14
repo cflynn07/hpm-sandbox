@@ -1,19 +1,21 @@
 #!/bin/bash
+# replication/master-setup.sh
 
-container_name="mysql_master"
-check_container() {
-  docker inspect "$container_name" &>/dev/null
-}
+set -e
+set -f #noglob
 
-echo "waiting for $container_name to start..."
-while ! check_container; do
-  echo "$container_name not found"
+. ./shared.sh
+
+shared::init "mysql_master"
+shared::wait_on_mysql
+shared::query "CREATE USER 'repl_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password'"
+shared::query "GRANT REPLICATION SLAVE ON *.* TO repl_user@'%'"
+shared::query "CREATE DATABASE repl_demo"
+shared::query "CREATE TABLE repl_demo.table1 (id int not null primary key)"
+
+count=1
+while true; do
+  shared::query "INSERT INTO repl_demo.table1 VALUES ($count)"
+  count=$((count + 1))
   sleep 1
 done
-
-CID=$(docker inspect $container_name -f "{{ .Id }}")
-echo "found $container_name, ID: $CID"
-
-cat <<- EOF | mysql -u root -ppassword -h "$container_name"
-SHOW DATABASES; ###
-EOF

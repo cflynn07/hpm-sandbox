@@ -15,12 +15,18 @@ visualization.
 Files
 -----
 - Dockerfile-tmuxinator
-A dockerfile that builds an image which has tmux, tmuxinator, vim and the
-docker client binaries. The idea is to run a container which has the docker
-socket of the host mounted to display a tmux session (defined and initiated
-with tmuxinator) displaying a demonstration of various setups (such as a mysql
-master and slave setup in docker-compose)
+A dockerfile that builds an image with tmux, tmuxinator, vim and the docker
+client binaries. The container created from this image will have the docker
+socket mounted within it so the client docker library in the container can 
+communicate with the host's dockerd.
 
+Replication Demo Usage
+----------------------
+```
+$ ./replication/start.sh
+```
+
+Notes...
 ```
 # build visualization container image
 $ docker build -f ./Dockerfile-tmuxinator -t tmuxinator .

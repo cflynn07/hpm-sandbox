@@ -7,6 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
     expose:
       - 3306
+    command: --server-id=1 --log-bin=master-bin.log
   mysql_slave:
     container_name: mysql_slave
     image: "mysql:8"
@@ -14,3 +15,4 @@ services:
       MYSQL_ROOT_PASSWORD: password
     expose:
       - 3306
+    command: --server-id=2 --relay-log-index=slave-relay-bin.index --relay-log=slave-relay-bin
