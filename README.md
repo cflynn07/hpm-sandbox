@@ -12,6 +12,8 @@ The first thing I'm going to try is setting up MySQL replication using docker
 and docker-compose. I'll use a container with tmux and tmuxinator to make a
 visualization.
 
+[![asciicast](https://asciinema.org/a/wMJ22UmOaahU0XO60OGRvPDDt.svg)](https://asciinema.org/a/wMJ22UmOaahU0XO60OGRvPDDt)
+
 Files
 -----
 - Dockerfile-tmuxinator
